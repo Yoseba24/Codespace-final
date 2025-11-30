@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+
+  app_sov:
+    build: ./app_sov0002
+    container_name: app_sov
+    networks:
+      - webnet
+
+  app_jsm0058:
+    build: ./app_jsm0058
+    container_name: app_jsm0058
+    networks:
+      - webnet
+
+  app_yra0005:
+    build: ./app_yra0005
+    container_name: app_yra0005
+    networks:
+      - webnet
+
+  app_nrj0005:
+    build: ./app_nrj0005
+    container_name: app_nrj0005
+    networks:
+      - webnet
+
+  nginx:
+    image: nginx
+    container_name: team_nginx
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app_sov
+      - app_jsm0058
+      - app_yra0005
+      - app_nrj0005
+    networks:
+      - webnet
+
+networks:
+  webnet:
